@@ -119,3 +119,15 @@ if a is None or len(a) == 0:
     print('False')
 else:
     print(a[0]=='_' or 'a'<=a[0]<='z' or 'A'<=a[0]<='Z')
+
+
+
+#
+str1 = '1 imooc python'
+
+print(str1.find('imooc'))  #2
+print(str1.find('c'))  #6
+print(str1.find('1'))  #0
+
+print(str1.startswith('imooc'))  #False
+print(str1.startswith('1'))  #True
