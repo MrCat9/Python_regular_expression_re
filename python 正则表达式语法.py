@@ -290,6 +290,17 @@ ma = re.match(r'[0-9][a-z]??', '1bc')
 print(ma.group())  #1
 print(type(ma))  #<class '_sre.SRE_Match'>
 
+#非贪婪模式只截取第一次满足匹配的字符串，一旦满足就不在匹配。
+#比如匹配以a开头以b结尾的字符串。非贪婪模式当匹配到第一b字符时就会停止匹配，
+#贪婪模式只要你符合要求就会匹配，在这里会匹配所有的字符串。
+ma = re.match(r'a.*?b', 'aaabcb')
+print(ma.group())  #aaab
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'a.*b', 'aaabcb')
+print(ma.group())  #aaabcb
+print(type(ma))  #<class '_sre.SRE_Match'>
+
 
 
 #边界匹配  指定字符串匹配的开头和结尾
