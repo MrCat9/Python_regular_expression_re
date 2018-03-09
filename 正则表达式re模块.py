@@ -28,65 +28,25 @@ print(ma.re)  #re.compile('imooc')  -->Pattern实例会放在re中
 pa1 = re.compile(r'_')
 ma1 = pa1.match('_value')
 print(ma1.group())  #_
+print(ma1.string)  #_value
 
+#如需匹配忽略大小写时
+pa = re.compile(r'imooc', re.I)  #忽略大小写
+print(pa)  #re.compile('imooc', re.IGNORECASE)
+ma = pa.match('imooc python')
+print(ma.group())  #imooc
+ma = pa.match('ImoOc python')
+print(ma.group())  #ImoOc
+print(ma.string)  #ImoOc python
 
+#ma.groups()
+pa = re.compile(r'(imooc)', re.I)
+print(pa)  #re.compile('(imooc)', re.IGNORECASE)
+ma = pa.match('imooc python')
+print(ma.group())  #imooc
+print(ma.groups())  #('imooc',)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ma = re.match(r'imooc', 'imooc python', re.I)  #要多次匹配的时候建议生成pattern对象
+print(ma)  #<_sre.SRE_Match object; span=(0, 5), match='imooc'>
+print(ma.group())  #imooc
+print(ma.groups())  #()  -->r'imooc'  没加()，所以返回空
