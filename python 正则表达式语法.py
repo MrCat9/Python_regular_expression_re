@@ -292,20 +292,70 @@ print(type(ma))  #<class '_sre.SRE_Match'>
 
 
 
+#边界匹配  指定字符串匹配的开头和结尾
+^         匹配字符串开头
+$         匹配字符串结尾
+\A / \Z   指定的字符串匹必须出现在开头/结尾
 
 
 
+#^和$
+#匹配163邮箱
+import re
+ma = re.match(r'[\w]{6,10}@163[.]com', 'abcd1235@163.com')
+print(ma.group())  #abcd1235@163.com
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[\w]{6,10}@163[.]com', 'abcd1235@163.comasd')
+print(ma.group())  #abcd1235@163.com
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[\w]{6,10}@163[.]com$', 'abcd1235@163.comasd')
+print(type(ma))  #<<class 'NoneType'>
+
+ma = re.match(r'^[\w]{6,10}@163[.]com$', 'abcd1235@163.comasd')
+print(type(ma))  #<<class 'NoneType'>
+
+ma = re.match(r'^[\w]{6,10}@163[.]com$', 'abcd1235@163.com')
+print(ma.group())  #abcd1235@163.com
+print(type(ma))  #<class '_sre.SRE_Match'>
 
 
 
+#\A / \Z
+#匹配imooc开头
+import re
+ma = re.match(r'\Aimooc[\w]*', 'imooc')
+print(ma.group())  #imooc
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'\Aimooc[\w]*', 'imoocpython')
+print(ma.group())  #imoocpython
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'\Aimooc[\w]*', 'imooc python')
+print(ma.group())  #imooc
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'\Aimooc[\w]*', 'iimoocpython')
+print(type(ma))  #<class 'NoneType'>
+
+ma = re.match(r'\Aimooc[\w]*', 'imoopython')
+print(type(ma))  #<class 'NoneType'>
 
 
 
+#分组匹配
+|           匹配左右任意一个表达式
+(ab)        括号中表达式作为一个分组
+\<number>   引用编号为num的分组匹配到的字符串
+(?P<name>)  分组起一个别名
+(?P=name)   引用别名为name的分组匹配字符串
 
 
 
-
-
+#|
+#
 
 
 
