@@ -366,42 +366,109 @@ print(type(ma))  #<class 'NoneType'>
 
 
 #|
-#
+import re
+ma = re.match(r'abc|d', 'abc')
+print(ma.group())  #abc
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'abc|d', 'd')
+print(ma.group())  #d
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+#匹配0-100
+ma = re.match(r'[1-9]?\d$', '0')
+print(ma.group())  #0
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[1-9]?\d$', '99')
+print(ma.group())  #99
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[1-9]?\d$', '09')
+print(type(ma))  #<class 'NoneType'>
+
+ma = re.match(r'[1-9]?\d$', '100')
+print(type(ma))  #<<class 'NoneType'>
+
+ma = re.match(r'[1-9]?\d$|100', '100')  #|
+print(ma.group())  #100
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[1-9]?\d$|100', '99')
+print(ma.group())  #99
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[1-9]?\d$|100', '0')
+print(ma.group())  #0
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[1-9]?\d$|100', '09')
+print(type(ma))  #<class 'NoneType'>
 
 
 
+#(ab)
+#匹配163或126邮箱
+import re
+ma = re.match(r'[\w]{4,6}@163[.]com$', 'imooc@163.com')
+print(ma.group())  #imooc@163.com
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[\w]{4,6}@163[.]com$|[\w]{4,6}@126[.]com$', 'imooc@126.com')
+print(ma.group())  #imooc@126.com
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[\w]{4,6}@(163|126)[.]com$', 'imooc@163.com')
+print(ma.group())  #imooc@163.com
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'[\w]{4,6}@(163|126)[.]com$', 'imooc@126.com')
+print(ma.group())  #imooc@126.com
+print(type(ma))  #<class '_sre.SRE_Match'>
 
 
 
+#\<number>
+#判断html  匹配<book>python</book>
+import re
+ma = re.match(r'<[\w]+>', '<book>')
+print(ma.group())  #<book>
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'<([\w]+>)', '<book>')
+print(ma.group())  #<book>
+print(ma.groups())  #('book>',)
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'<([\w]+>)\1', '<book>book>')
+print(ma.group())  #<book>book>
+print(ma.groups())  #('book>',)
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'<([\w]+>)\1\1', '<book>book>book>')
+print(ma.group())  #<book>book>book>
+print(ma.groups())  #('book>',)
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'<([\w]+>)[\w]+</\1', '<book>python</book>')
+print(ma.group())  #<book>python</book>
+print(ma.groups())  #('book>',)
+print(type(ma))  #<class '_sre.SRE_Match'>
+
+ma = re.match(r'<([\w]+>)[\w]+</\1', '<book>python</1book>')
+print(type(ma))  #<class 'NoneType'>
+
+ma = re.match(r'(abc)(123)\1\2', 'abc123abc123456')
+print(ma.group())  #abc123abc123
+print(ma.groups())  #('book>',)
+print(type(ma))  #<class '_sre.SRE_Match'>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#(?P<name>)  分组起一个别名
+#(?P=name)   引用别名为name的分组匹配字符串
+import re
+ma = re.match(r'<(?P<mark>[\w]+>)[\w]+</(?P=mark)', '<book>python</book>')  #命名为mark
+print(ma.group())  #<book>python</book>
+print(ma.groups())  #('book>',)
+print(type(ma))  #<class '_sre.SRE_Match'>
