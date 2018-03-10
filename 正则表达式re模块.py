@@ -50,3 +50,73 @@ ma = re.match(r'imooc', 'imooc python', re.I)  #要多次匹配的时候建议�
 print(ma)  #<_sre.SRE_Match object; span=(0, 5), match='imooc'>
 print(ma.group())  #imooc
 print(ma.groups())  #()  -->r'imooc'  没加()，所以返回空
+
+
+
+#match方法会从头开始匹配
+
+#re模块的search方法  -->在一个字符串中查找第一个匹配
+#re.search(pattern, string, flags)
+#如：查找str1中的数字
+import re
+str1 = 'imooc videonum = 1000'
+print(str1.find('1000'))  #17
+
+info = re.search(r'\d+', str1)
+print(info.group())  #1000
+
+str1 = 'imooc videonum = 2000'
+info = re.search(r'\d+', str1)
+print(info.group())  #2000
+
+
+
+#findall方法  -->找到匹配，返回所有匹配部分的列表  #所有！
+#re.findall(pattern, string, flags)
+import re
+str2 = 'c++ = 100, java = 90, python = 80'
+info = re.search(r'\d+', str2)
+print(info.group())  #100
+
+info = re.findall(r'\d+', str2)
+print(info)  #['100', '90', '80']
+print(sum([int(x) for x in info]))  #270
+
+
+
+#sub方法  -->将字符串中匹配正则表达式的部分替换为其他值
+#re.sub(pattern, repl, string, count, flags)  #repl可以是一个string（会替换成该string），也可以是个方法（会替换成方法的返回值）
+#repl是一个string时
+import re
+str3 = 'imooc videonum = 1000'
+info = re.sub(r'\d+', '1001', str3)
+print(info)  #imooc videonum = 1001
+
+#repl是一个方法时
+import re
+str3 = 'imooc videonum = 1000'
+
+def add1(match):
+    val = match.group()
+    num = int(val)+1
+    return str(num)
+    
+info = re.sub(r'\d+', add1, str3)
+print(info)  #imooc videonum = 1001
+
+str3 = 'imooc videonum = 10'
+info = re.sub(r'\d+', add1, str3)
+print(info)  #imooc videonum = 11
+
+
+
+#split方法  -->根据匹配，分割字符串，返回分割字符串组成的列表
+#re.split(pattern, string, maxsplit, flags)  #maxsplit是分割次数
+import re
+str4 = 'imooc:C C++ Java Python'
+info = re.split(r':| ', str4)
+print(info)  #['imooc', 'C', 'C++', 'Java', 'Python']
+
+str4 = 'imooc:C C++ Java Python,C#'
+info = re.split(r':| |,', str4)
+print(info)  #['imooc', 'C', 'C++', 'Java', 'Python', 'C#']
