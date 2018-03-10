@@ -354,6 +354,21 @@ print(type(ma))  #<class 'NoneType'>
 ma = re.match(r'\Aimooc[\w]*', 'imoopython')
 print(type(ma))  #<class 'NoneType'>
 
+ma = re.match(r'\Abg.*end\Z', 'bgend')
+print(ma.group())
+
+ma = re.match(r'\Abg.*end\Z', 'bgasdfend')
+print(ma.group())
+
+ma = re.match(r'\Abg.*\.end', 'bg.end')
+print(ma.group())
+
+ma = re.match(r'\Abg.*\,end', 'bg.,end')
+print(ma.group())
+
+ma = re.match(r'\Abg.*\<end', 'bg.,<end')
+print(ma.group())
+
 
 
 #分组匹配
