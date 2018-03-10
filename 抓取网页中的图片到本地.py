@@ -15,7 +15,7 @@ buf = buf.decode('utf-8')
 # print(listurl)
 # listurl = re.findall(r'http:.+\.jpg', buf)
 # print(listurl)
-listurl = re.findall(r'\//img.+\.jpg', buf)
+listurl = re.findall(r'\//img.+?\.jpg', buf)
 print(listurl)
 
 i = 0
